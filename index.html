@@ -1,46 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my research library :3</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f9f9f9; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        h1 { color: #4a90e2; }
-        .pdf-list { list-style: none; padding: 0; }
-        .pdf-item { margin: 10px 0; }
-        .pdf-link { display: block; padding: 15px; background: #e3f2fd; color: #1565c0; text-decoration: none; border-radius: 10px; transition: 0.3s; font-weight: bold; }
-        .pdf-link:hover { background: #bbdefb; transform: translateY(-2px); }
-        .status { font-size: 0.9em; color: #888; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMART:SKED - Research Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e8f5e9;--surface:#f1faf2;--surface2:#e0f2e1;--surface3:#c8e6c9;
+  --border:#a5d6a7;--accent:#2e7d32;--accent2:#388e3c;--green:#1b5e20;
+  --yellow:#f9a825;--red:#c62828;--orange:#e65100;
+  --text:#1a2e1b;--text2:#4a6b4c;--text3:#7a9b7c;
+  --r:12px;--shadow:0 2px 8px rgba(46,125,50,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+
+/* HEADER */
+header{background:var(--accent);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:8px;}
+.logo{background:rgba(255,255,255,.2);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0;}
+.ht{flex-shrink:0;}
+.ht h1{font-size:17px;font-weight:800;color:#fff;line-height:1.2;}
+.ht p{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px;}
+.hm{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;row-gap:5px;}
+.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.9);white-space:nowrap;}
+.chip span{color:#fff;font-weight:700;}
+.chip-edit{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:4px 11px;font-size:11px;color:#fff;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;outline:none;min-width:70px;max-width:130px;text-align:center;cursor:text;}
+.chip-edit:focus{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.8);}
+.chip-label{color:rgba(255,255,255,.7);font-size:11px;white-space:nowrap;}
+
+/* MAIN LAYOUT */
+.main-grid{display:grid;grid-template-columns:1fr;gap:16px;padding:16px 20px;flex-grow:1;align-items:start;}
+.content-left{display:flex;flex-direction:column;gap:16px;}
+
+/* STAT CARDS */
+.stats-header{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.stat-card-top{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;}
+.stat-title-top{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);margin-bottom:3px;}
+.stat-value-top{font-size:26px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--accent);}
+.stat-desc-top{font-size:10px;color:var(--text2);margin-top:2px;}
+.cA{color:var(--accent)!important;}.cY{color:var(--yellow)!important;}.cR{color:var(--red)!important;}.cG{color:var(--green)!important;}
+
+/* CONTENT CARD */
+.content-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);}
+.card-header{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap;}
+.card-icon{width:32px;height:32px;border-radius:9px;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card-title{font-size:14px;font-weight:700;text-transform:uppercase;color:var(--accent);flex-grow:1;}
+
+/* PDF LIST STYLES */
+.pdf-list-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);}
+.pdf-list-table{width:100%;border-collapse:collapse;font-size:12px;}
+.pdf-list-table thead th{background:var(--surface3);padding:8px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;}
+.pdf-list-table tbody tr{border-bottom:1px solid var(--border);}
+.pdf-list-table tbody tr:last-child{border-bottom:none;}
+.pdf-list-table tbody tr:hover{background:rgba(46,125,50,.03);}
+.pdf-list-table tbody td{padding:7px 10px;color:var(--text);vertical-align:middle;}
+
+.pdf-link-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .2s;text-decoration:none;}
+.pdf-link-btn:hover{background:var(--green);}
+.pdf-doc-icon{width:28px;height:28px;border-radius:6px;background:rgba(46,125,50,.15);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:800;font-size:10px;}
+
+/* STATUS BADGES */
+.status{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700;}
+.status-ready{background:rgba(27,94,32,.12);color:#1b5e20;}
+.status-offline{background:rgba(120,144,156,.12);color:#607d8b;}
+
+/* MODAL STYLES */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:16px 12px;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;width:100%;max-width:800px;box-shadow:0 16px 50px rgba(0,0,0,.2);display:flex;flex-direction:column;max-height:calc(100vh - 32px);}
+.modal-header{padding:15px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;flex-shrink:0;}
+.modal-title{font-size:15px;font-weight:800;color:var(--accent);flex-grow:1;}
+.modal-close{background:var(--surface2);border:1px solid var(--border);color:var(--text2);font-size:15px;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
+.modal-close:hover{background:var(--surface3);}
+.modal-body{padding:16px 18px;overflow-y:auto;flex-grow:1;}
+.modal-footer{padding:10px 18px;border-top:1px solid var(--border);display:flex;gap:7px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+
+/* TOAST */
+#toast{position:fixed;bottom:18px;right:18px;background:var(--accent);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none;}
+#toast.show{opacity:1;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .main-grid{grid-template-columns:1fr;}
+}
+@media(max-width:900px){
+  .stats-header{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  .ht p{display:none;}
+  .chip-label{display:none;}
+}
+@media(max-width:640px){
+  header{padding:9px 12px;gap:7px;row-gap:6px;}
+  .logo{width:34px;height:34px;font-size:12px;}
+  .ht h1{font-size:14px;}
+  .chip-edit{min-width:55px;max-width:100px;padding:3px 8px;font-size:10px;}
+  .chip{font-size:10px;padding:3px 9px;}
+  .main-grid{padding:10px 10px;gap:10px;}
+  .stats-header{gap:7px;}
+  .modal-box{max-width:100%;border-radius:10px;}
+  .modal-body{padding:11px 12px;}
+}
+@media(max-width:400px){
+  .hm .chip{display:none;}
+  .stats-header{grid-template-columns:repeat(2,1fr);}
+  .stat-value-top{font-size:22px;}
+  .ht h1{font-size:13px;}
+}
+
+/* ══ INTRO SCREEN ══ */
+#intro-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--accent);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#intro-screen.fade-out{opacity:0;visibility:hidden;}
+
+.intro-logo{
+  background:rgba(255,255,255,.2);
+  border-radius:20px;
+  width:72px;height:72px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:24px;color:#fff;
+  animation:intro-pop .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+.intro-title{
+  font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.8);
+  letter-spacing:.15em;text-transform:uppercase;
+  animation:intro-fade-up .6s .15s ease both;
+}
+.intro-welcome{
+  font-size:52px;font-weight:800;color:#fff;
+  line-height:1;letter-spacing:-.02em;
+  animation:intro-fade-up .6s .3s ease both;
+}
+.intro-sub{
+  font-size:13px;color:rgba(255,255,255,.65);
+  animation:intro-fade-up .5s .45s ease both;
+}
+.intro-bar-wrap{
+  width:180px;height:3px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;
+  margin-top:12px;
+  animation:intro-fade-up .4s .55s ease both;
+}
+.intro-bar-fill{
+  height:100%;background:#fff;border-radius:99px;
+  width:0%;animation:intro-progress 4s .7s linear forwards;
+}
+
+@keyframes intro-pop{
+  0%{transform:scale(.5);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+@keyframes intro-fade-up{
+  0%{transform:translateY(18px);opacity:0}
+  100%{transform:translateY(0);opacity:1}
+}
+@keyframes intro-progress{
+  0%{width:0%}100%{width:100%}
+}
+
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>research documents ^_^</h1>
-        <p>click a file to view it! it will work offline once loaded! ;p</p>
-        
-        <ul class="pdf-list">
-            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M1_Q1_V3-1.pdf">document 01</a></li>
-            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M2_Q1_V3-2.pdf">document 02</a></li>
-            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M3_Q1_V3.pdf">document 03</a></li>
-            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M4_Q1_V3.pdf">document 04</a></li>
-            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M5_Q1_V3.pdf">document 05</a></li>
-            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M6_Q1_V3.pdf">document 06</a></li>
-        </ul>
-        
-        <p class="status" id="status-msg">checking offline status...</p>
+<div id="intro-screen">
+  <div class="intro-logo">SS</div>
+  <div class="intro-title">SMART:SKED</div>
+  <div class="intro-welcome">Research Library</div>
+  <div class="intro-sub">Loading your documents…</div>
+  <div class="intro-bar-wrap"><div class="intro-bar-fill"></div></div>
+</div>
+
+<div id="toast"></div>
+
+<header>
+  <div class="logo">SS</div>
+  <div class="ht">
+    <h1>SMART:SKED</h1>
+    <p>Research Library - Document Viewer</p>
+  </div>
+  <div class="hm">
+    <span class="chip-label">Status:</span>
+    <div class="chip" id="status-chip">Loading...</div>
+  </div>
+</header>
+
+<div class="main-grid">
+  <div class="content-left">
+
+    <!-- Stat Cards -->
+    <div class="stats-header">
+      <div class="stat-card-top">
+        <div class="stat-title-top">Documents</div>
+        <div class="stat-value-top cA" id="docCount">6</div>
+        <div class="stat-desc-top">available</div>
+      </div>
+      <div class="stat-card-top">
+        <div class="stat-title-top">Modules</div>
+        <div class="stat-value-top cY" id="modCount">6</div>
+        <div class="stat-desc-top">covered</div>
+      </div>
+      <div class="stat-card-top">
+        <div class="stat-title-top">Ready</div>
+        <div class="stat-value-top cG" id="readyCount">0</div>
+        <div class="stat-desc-top">cached for offline</div>
+      </div>
+      <div class="stat-card-top">
+        <div class="stat-title-top">Pending</div>
+        <div class="stat-value-top cR" id="pendingCount">6</div>
+        <div class="stat-desc-top">not cached yet</div>
+      </div>
     </div>
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                .then(() => { document.getElementById('status-msg').innerText = 'all 6 files are ready for offline use! ^_^'; })
-                .catch(err => console.log('oops!', err));
-            });
-        }
-    </script>
+    <!-- Document Library -->
+    <div class="content-card">
+      <div class="card-header">
+        <div class="card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+        <div class="card-title">Document Library</div>
+      </div>
+      <div class="pdf-list-wrap">
+        <table class="pdf-list-table">
+          <thead>
+            <tr>
+              <th>Document</th>
+              <th>Module</th>
+              <th>Quarter</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">01</div>FIL11Pagbasa_M1_Q1</div></td>
+              <td>Module 1</td>
+              <td>Q1</td>
+              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M1_Q1_V3-1.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">02</div>FIL11Pagbasa_M2_Q1</div></td>
+              <td>Module 2</td>
+              <td>Q1</td>
+              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M2_Q1_V3-2.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">03</div>FIL11Pagbasa_M3_Q1</div></td>
+              <td>Module 3</td>
+              <td>Q1</td>
+              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M3_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">04</div>FIL11Pagbasa_M4_Q1</div></td>
+              <td>Module 4</td>
+              <td>Q1</td>
+              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M4_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">05</div>FIL11Pagbasa_M5_Q1</div></td>
+              <td>Module 5</td>
+              <td>Q1</td>
+              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M5_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">06</div>FIL11Pagbasa_M6_Q1</div></td>
+              <td>Module 6</td>
+              <td>Q1</td>
+              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M6_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Offline Status -->
+    <div class="content-card">
+      <div class="card-header">
+        <div class="card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent2)"><path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg></div>
+        <div class="card-title">Offline Status</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">
+        Documents are cached for offline access using Service Worker. Once loaded, documents will work without internet connection.
+      </div>
+      <div id="cache-status" style="display:flex;flex-direction:column;gap:6px;">
+        <!-- Cache status will be updated by JavaScript -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Intro screen fade out
+setTimeout(() => {
+  document.getElementById('intro-screen').classList.add('fade-out');
+}, 4500);
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((registration) => {
+        document.getElementById('status-chip').innerHTML = 'Ready <span>✓</span>';
+        document.getElementById('status-chip').style.background = 'rgba(27,94,32,.25)';
+        document.getElementById('readyCount').textContent = '6';
+        document.getElementById('pendingCount').textContent = '0';
+        document.getElementById('readyCount').classList.remove('cR');
+        document.getElementById('readyCount').classList.add('cG');
+        updateCacheStatus('ready');
+        showToast('All documents cached for offline use!');
+      })
+      .catch((err) => {
+        console.log('ServiceWorker registration failed: ', err);
+        document.getElementById('status-chip').innerHTML = 'Offline <span>⚠</span>';
+        updateCacheStatus('offline');
+      });
+  });
+} else {
+  document.getElementById('status-chip').textContent = 'Not Supported';
+}
+
+function updateCacheStatus(status) {
+  const container = document.getElementById('cache-status');
+  const docs = [
+    'FIL11Pagbasa_M1_Q1_V3-1.pdf',
+    'FIL11Pagbasa_M2_Q1_V3-2.pdf',
+    'FIL11Pagbasa_M3_Q1_V3.pdf',
+    'FIL11Pagbasa_M4_Q1_V3.pdf',
+    'FIL11Pagbasa_M5_Q1_V3.pdf',
+    'FIL11Pagbasa_M6_Q1_V3.pdf'
+  ];
+  
+  let html = '';
+  docs.forEach((doc, i) => {
+    const docStatus = status === 'ready' ? 
+      '<span class="status status-ready">Cached ✓</span>' : 
+      '<span class="status status-offline">Pending</span>';
+    html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--surface2);border-radius:6px;font-size:11px;">
+      <span>${doc}</span>
+      ${docStatus}
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+</script>
 </body>
 </html>
