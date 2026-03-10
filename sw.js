@@ -2,12 +2,12 @@ const cacheName = 'pdf-archive-v1';
 const assets = [
   './',
   './index.html',
-  './file1.pdf',
-  './file2.pdf',
-  './file3.pdf',
-  './file4.pdf',
-  './file5.pdf',
-  './file6.pdf'
+  './FIL11Pagbasa_M1_Q1_V3-1.pdf',
+  './FIL11Pagbasa_M2_Q1_V3-2.pdf',
+  './FIL11Pagbasa_M3_Q1_V3.pdf',
+  './FIL11Pagbasa_M4_Q1_V3.pdf',
+  './FIL11Pagbasa_M5_Q1_V3.pdf',
+  './FIL11Pagbasa_M6_Q1_V3.pdf'
 ];
 
 self.addEventListener('install', e => {
@@ -25,4 +25,5 @@ self.addEventListener('fetch', e => {
       return response || fetch(e.request);
     })
   );
+
 });
