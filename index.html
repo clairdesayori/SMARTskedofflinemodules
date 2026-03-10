@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my research library :3</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f9f9f9; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        h1 { color: #4a90e2; }
+        .pdf-list { list-style: none; padding: 0; }
+        .pdf-item { margin: 10px 0; }
+        .pdf-link { display: block; padding: 15px; background: #e3f2fd; color: #1565c0; text-decoration: none; border-radius: 10px; transition: 0.3s; font-weight: bold; }
+        .pdf-link:hover { background: #bbdefb; transform: translateY(-2px); }
+        .status { font-size: 0.9em; color: #888; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>research documents ^_^</h1>
+        <p>click a file to view it! it will work offline once loaded! ;p</p>
+        
+        <ul class="pdf-list">
+            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M1_Q1_V3-1.pdf">document 01</a></li>
+            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M2_Q1_V3-2.pdf">document 02</a></li>
+            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M3_Q1_V3.pdf">document 03</a></li>
+            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M4_Q1_V3.pdf">document 04</a></li>
+            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M5_Q1_V3.pdf">document 05</a></li>
+            <li class="pdf-item"><a class="pdf-link" href="FIL11Pagbasa_M6_Q1_V3.pdf">document 06</a></li>
+        </ul>
+        
+        <p class="status" id="status-msg">checking offline status...</p>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(() => { document.getElementById('status-msg').innerText = 'all 6 files are ready for offline use! ^_^'; })
+                .catch(err => console.log('oops!', err));
+            });
+        }
+    </script>
+</body>
+</html>
