@@ -1,358 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMART:SKED - Research Library</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#e8f5e9;--surface:#f1faf2;--surface2:#e0f2e1;--surface3:#c8e6c9;
-  --border:#a5d6a7;--accent:#2e7d32;--accent2:#388e3c;--green:#1b5e20;
-  --yellow:#f9a825;--red:#c62828;--orange:#e65100;
-  --text:#1a2e1b;--text2:#4a6b4c;--text3:#7a9b7c;
-  --r:12px;--shadow:0 2px 8px rgba(46,125,50,.10);
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="format-detection" content="telephone=no">
+    <title>Mobile Responsive App</title>
+    <style>
+        /* CSS Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-/* HEADER */
-header{background:var(--accent);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:8px;}
-.logo{background:rgba(255,255,255,.2);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0;}
-.ht{flex-shrink:0;}
-.ht h1{font-size:17px;font-weight:800;color:#fff;line-height:1.2;}
-.ht p{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px;}
-.hm{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;row-gap:5px;}
-.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.9);white-space:nowrap;}
-.chip span{color:#fff;font-weight:700;}
-.chip-edit{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:4px 11px;font-size:11px;color:#fff;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;outline:none;min-width:70px;max-width:130px;text-align:center;cursor:text;}
-.chip-edit:focus{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.8);}
-.chip-label{color:rgba(255,255,255,.7);font-size:11px;white-space:nowrap;}
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #5856D6;
+            --background-color: #F2F2F7;
+            --card-background: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #8E8E93;
+            --safe-area-top: env(safe-area-inset-top, 0px);
+            --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-left: env(safe-area-inset-left, 0px);
+            --safe-area-right: env(safe-area-inset-right, 0px);
+        }
 
-/* MAIN LAYOUT */
-.main-grid{display:grid;grid-template-columns:1fr;gap:16px;padding:16px 20px;flex-grow:1;align-items:start;}
-.content-left{display:flex;flex-direction:column;gap:16px;}
+        html {
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
 
-/* STAT CARDS */
-.stats-header{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.stat-card-top{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;}
-.stat-title-top{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);margin-bottom:3px;}
-.stat-value-top{font-size:26px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--accent);}
-.stat-desc-top{font-size:10px;color:var(--text2);margin-top:2px;}
-.cA{color:var(--accent)!important;}.cY{color:var(--yellow)!important;}.cR{color:var(--red)!important;}.cG{color:var(--green)!important;}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            padding-top: var(--safe-area-top);
+            padding-bottom: var(--safe-area-bottom);
+        }
 
-/* CONTENT CARD */
-.content-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);}
-.card-header{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap;}
-.card-icon{width:32px;height:32px;border-radius:9px;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.card-title{font-size:14px;font-weight:700;text-transform:uppercase;color:var(--accent);flex-grow:1;}
+        /* iOS Safe Area Handling */
+        .ios-safe-area {
+            padding-top: var(--safe-area-top);
+            padding-bottom: var(--safe-area-bottom);
+            padding-left: max(16px, var(--safe-area-left));
+            padding-right: max(16px, var(--safe-area-right));
+        }
 
-/* PDF LIST STYLES */
-.pdf-list-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);}
-.pdf-list-table{width:100%;border-collapse:collapse;font-size:12px;}
-.pdf-list-table thead th{background:var(--surface3);padding:8px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;}
-.pdf-list-table tbody tr{border-bottom:1px solid var(--border);}
-.pdf-list-table tbody tr:last-child{border-bottom:none;}
-.pdf-list-table tbody tr:hover{background:rgba(46,125,50,.03);}
-.pdf-list-table tbody td{padding:7px 10px;color:var(--text);vertical-align:middle;}
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
 
-.pdf-link-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .2s;text-decoration:none;}
-.pdf-link-btn:hover{background:var(--green);}
-.pdf-doc-icon{width:28px;height:28px;border-radius:6px;background:rgba(46,125,50,.15);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:800;font-size:10px;}
+        /* Header */
+        .header {
+            background: var(--card-background);
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.8);
+        }
 
-/* STATUS BADGES */
-.status{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700;}
-.status-ready{background:rgba(27,94,32,.12);color:#1b5e20;}
-.status-offline{background:rgba(120,144,156,.12);color:#607d8b;}
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: center;
+        }
 
-/* MODAL STYLES */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:16px 12px;overflow-y:auto;}
-.modal-overlay.open{display:flex;}
-.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;width:100%;max-width:800px;box-shadow:0 16px 50px rgba(0,0,0,.2);display:flex;flex-direction:column;max-height:calc(100vh - 32px);}
-.modal-header{padding:15px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;flex-shrink:0;}
-.modal-title{font-size:15px;font-weight:800;color:var(--accent);flex-grow:1;}
-.modal-close{background:var(--surface2);border:1px solid var(--border);color:var(--text2);font-size:15px;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
-.modal-close:hover{background:var(--surface3);}
-.modal-body{padding:16px 18px;overflow-y:auto;flex-grow:1;}
-.modal-footer{padding:10px 18px;border-top:1px solid var(--border);display:flex;gap:7px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+        /* Cards */
+        .card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
 
-/* TOAST */
-#toast{position:fixed;bottom:18px;right:18px;background:var(--accent);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none;}
-#toast.show{opacity:1;}
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
 
-/* RESPONSIVE */
-@media(max-width:1100px){
-  .main-grid{grid-template-columns:1fr;}
-}
-@media(max-width:900px){
-  .stats-header{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:768px){
-  .ht p{display:none;}
-  .chip-label{display:none;}
-}
-@media(max-width:640px){
-  header{padding:9px 12px;gap:7px;row-gap:6px;}
-  .logo{width:34px;height:34px;font-size:12px;}
-  .ht h1{font-size:14px;}
-  .chip-edit{min-width:55px;max-width:100px;padding:3px 8px;font-size:10px;}
-  .chip{font-size:10px;padding:3px 9px;}
-  .main-grid{padding:10px 10px;gap:10px;}
-  .stats-header{gap:7px;}
-  .modal-box{max-width:100%;border-radius:10px;}
-  .modal-body{padding:11px 12px;}
-}
-@media(max-width:400px){
-  .hm .chip{display:none;}
-  .stats-header{grid-template-columns:repeat(2,1fr);}
-  .stat-value-top{font-size:22px;}
-  .ht h1{font-size:13px;}
-}
+        .card-content {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
 
-/* ══ INTRO SCREEN ══ */
-#intro-screen{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--accent);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:16px;
-  transition:opacity .8s ease, visibility .8s ease;
-}
-#intro-screen.fade-out{opacity:0;visibility:hidden;}
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            -webkit-transition: transform 0.2s ease, opacity 0.2s ease;
+            min-height: 50px;
+            min-width: 44px;
+        }
 
-.intro-logo{
-  background:rgba(255,255,255,.2);
-  border-radius:20px;
-  width:72px;height:72px;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:24px;color:#fff;
-  animation:intro-pop .6s cubic-bezier(.34,1.56,.64,1) both;
-}
-.intro-title{
-  font-size:13px;font-weight:700;
-  color:rgba(255,255,255,.8);
-  letter-spacing:.15em;text-transform:uppercase;
-  animation:intro-fade-up .6s .15s ease both;
-}
-.intro-welcome{
-  font-size:52px;font-weight:800;color:#fff;
-  line-height:1;letter-spacing:-.02em;
-  animation:intro-fade-up .6s .3s ease both;
-}
-.intro-sub{
-  font-size:13px;color:rgba(255,255,255,.65);
-  animation:intro-fade-up .5s .45s ease both;
-}
-.intro-bar-wrap{
-  width:180px;height:3px;background:rgba(255,255,255,.2);
-  border-radius:99px;overflow:hidden;
-  margin-top:12px;
-  animation:intro-fade-up .4s .55s ease both;
-}
-.intro-bar-fill{
-  height:100%;background:#fff;border-radius:99px;
-  width:0%;animation:intro-progress 4s .7s linear forwards;
-}
+        .btn:active {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
 
-@keyframes intro-pop{
-  0%{transform:scale(.5);opacity:0}
-  100%{transform:scale(1);opacity:1}
-}
-@keyframes intro-fade-up{
-  0%{transform:translateY(18px);opacity:0}
-  100%{transform:translateY(0);opacity:1}
-}
-@keyframes intro-progress{
-  0%{width:0%}100%{width:100%}
-}
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
 
-</style>
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 16px;
+            padding: 16px 0;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-background);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            padding-bottom: calc(8px + var(--safe-area-bottom));
+            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: color 0.2s ease;
+            -webkit-transition: color 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        /* Content Area */
+        .content {
+            padding-bottom: 80px;
+            padding-bottom: calc(60px + var(--safe-area-bottom));
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.25rem; }
+
+        @media (max-width: 767px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.25rem; }
+            h3 { font-size: 1.125rem; }
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: 1px solid #E5E5EA;
+            border-radius: 10px;
+            background: var(--card-background);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            -webkit-transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            min-height: 50px;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+            -webkit-box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Pull to Refresh */
+        .pull-to-refresh {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid #E5E5EA;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            -webkit-animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @-webkit-keyframes spin {
+            to { -webkit-transform: rotate(360deg); }
+        }
+
+        /* Android Specific Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .btn:hover {
+                opacity: 1;
+            }
+            
+            .btn:active {
+                transform: scale(0.94);
+            }
+        }
+
+        /* iOS Specific Optimizations */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #0A84FF;
+                --secondary-color: #5E5CE6;
+                --background-color: #000000;
+                --card-background: #1C1C1E;
+                --text-primary: #FFFFFF;
+                --text-secondary: #8E8E93;
+            }
+
+            .header {
+                background: rgba(28, 28, 30, 0.8);
+            }
+
+            .bottom-nav {
+                background: rgba(28, 28, 30, 0.95);
+            }
+
+            .input-field {
+                background: #2C2C2E;
+                border-color: #38383A;
+                color: #FFFFFF;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .header {
+                padding: 8px 16px;
+            }
+
+            .card {
+                padding: 12px;
+                margin: 8px 0;
+            }
+
+            .bottom-nav {
+                padding-bottom: calc(4px + var(--safe-area-bottom));
+            }
+        }
+
+        /* Large Screen Optimization */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 980px;
+            }
+
+            .card {
+                border-radius: 16px;
+                padding: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header ios-safe-area">
+        <h1>Mobile App</h1>
+    </header>
 
-<div id="intro-screen">
-  <div class="intro-logo">SS</div>
-  <div class="intro-title">SMART:SKED</div>
-  <div class="intro-welcome">Research Library</div>
-  <div class="intro-sub">Loading your documents…</div>
-  <div class="intro-bar-wrap"><div class="intro-bar-fill"></div></div>
-</div>
+    <!-- Main Content -->
+    <main class="container content">
+        <!-- Welcome Card -->
+        <section class="card">
+            <h2 class="card-title">Welcome</h2>
+            <p class="card-content">This is a responsive template optimized for both Android and iOS devices. It includes safe area handling, touch-friendly controls, and dark mode support.</p>
+        </section>
 
-<div id="toast"></div>
+        <!-- Features Grid -->
+        <section class="grid grid-2">
+            <div class="card">
+                <h3 class="card-title">📱 Responsive</h3>
+                <p class="card-content">Adapts perfectly to any screen size from phones to tablets.</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">🎨 Modern UI</h3>
+                <p class="card-content">Clean design following iOS Human Interface Guidelines.</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">🌙 Dark Mode</h3>
+                <p class="card-content">Automatically adapts to system dark mode preference.</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">⚡ Fast</h3>
+                <p class="card-content">Lightweight and optimized for quick loading.</p>
+            </div>
+        </section>
 
-<header>
-  <div class="logo">SS</div>
-  <div class="ht">
-    <h1>SMART:SKED</h1>
-    <p>Research Library - Document Viewer</p>
-  </div>
-  <div class="hm">
-    <span class="chip-label">Status:</span>
-    <div class="chip" id="status-chip">Loading...</div>
-  </div>
-</header>
+        <!-- Action Buttons -->
+        <section class="card">
+            <h3 class="card-title">Actions</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary Action</button>
+                <button class="btn btn-outline">Outline Button</button>
+            </div>
+        </section>
 
-<div class="main-grid">
-  <div class="content-left">
+        <!-- Input Form -->
+        <section class="card">
+            <h3 class="card-title">Contact</h3>
+            <form style="margin-top: 16px;">
+                <div class="input-group">
+                    <input type="text" class="input-field" placeholder="Your Name" aria-label="Name">
+                </div>
+                <div class="input-group">
+                    <input type="email" class="input-field" placeholder="Email Address" aria-label="Email">
+                </div>
+                <div class="input-group">
+                    <input type="tel" class="input-field" placeholder="Phone Number" aria-label="Phone">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+            </form>
+        </section>
+    </main>
 
-    <!-- Stat Cards -->
-    <div class="stats-header">
-      <div class="stat-card-top">
-        <div class="stat-title-top">Documents</div>
-        <div class="stat-value-top cA" id="docCount">6</div>
-        <div class="stat-desc-top">available</div>
-      </div>
-      <div class="stat-card-top">
-        <div class="stat-title-top">Modules</div>
-        <div class="stat-value-top cY" id="modCount">6</div>
-        <div class="stat-desc-top">covered</div>
-      </div>
-      <div class="stat-card-top">
-        <div class="stat-title-top">Ready</div>
-        <div class="stat-value-top cG" id="readyCount">0</div>
-        <div class="stat-desc-top">cached for offline</div>
-      </div>
-      <div class="stat-card-top">
-        <div class="stat-title-top">Pending</div>
-        <div class="stat-value-top cR" id="pendingCount">6</div>
-        <div class="stat-desc-top">not cached yet</div>
-      </div>
-    </div>
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav ios-safe-area">
+        <a href="#" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🔍</span>
+            <span>Search</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Add</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🔔</span>
+            <span>Alerts</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+        </a>
+    </nav>
 
-    <!-- Document Library -->
-    <div class="content-card">
-      <div class="card-header">
-        <div class="card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
-        <div class="card-title">Document Library</div>
-      </div>
-      <div class="pdf-list-wrap">
-        <table class="pdf-list-table">
-          <thead>
-            <tr>
-              <th>Document</th>
-              <th>Module</th>
-              <th>Quarter</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">01</div>FIL11Pagbasa_M1_Q1</div></td>
-              <td>Module 1</td>
-              <td>Q1</td>
-              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M1_Q1_V3-1.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
-            </tr>
-            <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">02</div>FIL11Pagbasa_M2_Q1</div></td>
-              <td>Module 2</td>
-              <td>Q1</td>
-              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M2_Q1_V3-2.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
-            </tr>
-            <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">03</div>FIL11Pagbasa_M3_Q1</div></td>
-              <td>Module 3</td>
-              <td>Q1</td>
-              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M3_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
-            </tr>
-            <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">04</div>FIL11Pagbasa_M4_Q1</div></td>
-              <td>Module 4</td>
-              <td>Q1</td>
-              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M4_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
-            </tr>
-            <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">05</div>FIL11Pagbasa_M5_Q1</div></td>
-              <td>Module 5</td>
-              <td>Q1</td>
-              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M5_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
-            </tr>
-            <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div class="pdf-doc-icon">06</div>FIL11Pagbasa_M6_Q1</div></td>
-              <td>Module 6</td>
-              <td>Q1</td>
-              <td><a class="pdf-link-btn" href="FIL11Pagbasa_M6_Q1_V3.pdf" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Open</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <script>
+        // Prevent default touch behaviors for better mobile experience
+        document.addEventListener('touchmove', function(e) {
+            if (e.target.closest('.bottom-nav')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
-    <!-- Offline Status -->
-    <div class="content-card">
-      <div class="card-header">
-        <div class="card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent2)"><path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg></div>
-        <div class="card-title">Offline Status</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">
-        Documents are cached for offline access using Service Worker. Once loaded, documents will work without internet connection.
-      </div>
-      <div id="cache-status" style="display:flex;flex-direction:column;gap:6px;">
-        <!-- Cache status will be updated by JavaScript -->
-      </div>
-    </div>
+        // Handle safe area changes (rotation, notches)
+        function updateSafeAreas() {
+            const vh = window.visualViewport?.height || window.innerHeight;
+            document.documentElement.style.setProperty('--vh', `${vh * 0.01}px`);
+        }
 
-  </div>
-</div>
+        window.addEventListener('resize', updateSafeAreas);
+        window.visualViewport?.addEventListener('resize', updateSafeAreas);
+        updateSafeAreas();
 
-<script>
-// Intro screen fade out
-setTimeout(() => {
-  document.getElementById('intro-screen').classList.add('fade-out');
-}, 4500);
+        // Form submission handling
+        document.querySelector('form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form submitted! (Demo)');
+        });
 
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then((registration) => {
-        document.getElementById('status-chip').innerHTML = 'Ready <span>✓</span>';
-        document.getElementById('status-chip').style.background = 'rgba(27,94,32,.25)';
-        document.getElementById('readyCount').textContent = '6';
-        document.getElementById('pendingCount').textContent = '0';
-        document.getElementById('readyCount').classList.remove('cR');
-        document.getElementById('readyCount').classList.add('cG');
-        updateCacheStatus('ready');
-        showToast('All documents cached for offline use!');
-      })
-      .catch((err) => {
-        console.log('ServiceWorker registration failed: ', err);
-        document.getElementById('status-chip').innerHTML = 'Offline <span>⚠</span>';
-        updateCacheStatus('offline');
-      });
-  });
-} else {
-  document.getElementById('status-chip').textContent = 'Not Supported';
-}
+        // Touch feedback for buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.96)';
+            }, { passive: true });
+            
+            btn.addEventListener('touchend', function() {
+                this.style.transform = '';
+            }, { passive: true });
+        });
 
-function updateCacheStatus(status) {
-  const container = document.getElementById('cache-status');
-  const docs = [
-    'FIL11Pagbasa_M1_Q1_V3-1.pdf',
-    'FIL11Pagbasa_M2_Q1_V3-2.pdf',
-    'FIL11Pagbasa_M3_Q1_V3.pdf',
-    'FIL11Pagbasa_M4_Q1_V3.pdf',
-    'FIL11Pagbasa_M5_Q1_V3.pdf',
-    'FIL11Pagbasa_M6_Q1_V3.pdf'
-  ];
-  
-  let html = '';
-  docs.forEach((doc, i) => {
-    const docStatus = status === 'ready' ? 
-      '<span class="status status-ready">Cached ✓</span>' : 
-      '<span class="status status-offline">Pending</span>';
-    html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--surface2);border-radius:6px;font-size:11px;">
-      <span>${doc}</span>
-      ${docStatus}
-    </div>`;
-  });
-  container.innerHTML = html;
-}
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
-</script>
+        console.log('Mobile-optimized template loaded successfully');
+    </script>
 </body>
 </html>
