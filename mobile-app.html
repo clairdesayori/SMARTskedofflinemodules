@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#2e7d32">
+  <title>SMART:SKED - Research Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="manifest" href="https://clairdesayori.github.io/SMARTskedofflinemodules/manifest.json">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       CSS CUSTOM PROPERTIES - DESIGN TOKENS
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Base Colors - Shared */
+      --bg: #e8f5e9;
+      --surface: #f1faf2;
+      --surface2: #e0f2e1;
+      --surface3: #c8e6c9;
+      --border: #a5d6a7;
+      --accent: #2e7d32;
+      --accent2: #388e3c;
+      --green: #1b5e20;
+      --yellow: #f9a825;
+      --red: #c62828;
+      --orange: #e65100;
+      --text: #1a2e1b;
+      --text2: #4a6b4c;
+      --text3: #7a9b7c;
+      --r: 12px;
+      --shadow: 0 2px 8px rgba(46, 125, 50, 0.10);
+      
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      
+      /* Typography */
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      /* Animation */
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s ease;
+      --transition-slow: 0.4s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ANDROID MATERIAL DESIGN 3 THEME
+       ═══════════════════════════════════════════════════════════════ */
+    .platform-android {
+      --md-primary: #2e7d32;
+      --md-on-primary: #ffffff;
+      --md-primary-container: #a5d6a7;
+      --md-on-primary-container: #1b5e20;
+      --md-secondary: #388e3c;
+      --md-on-secondary: #ffffff;
+      --md-surface: #ffffff;
+      --md-on-surface: #1a2e1b;
+      --md-surface-variant: #e8f5e9;
+      --md-outline: #a5d6a7;
+      --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --md-elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+      --md-elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+      --md-radius-sm: 8px;
+      --md-radius-md: 12px;
+      --md-radius-lg: 16px;
+      --md-radius-xl: 28px;
+      --md-font-weight-title: 600;
+      --md-font-weight-body: 400;
+      --md-bottom-nav-height: 80px;
+      --md-fab-size: 56px;
+      --md-button-height: 48px;
+      --md-touch-target: 48px;
+      --md-icon-size: 24px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       iOS HUMAN INTERFACE GUIDELINES THEME
+       ═══════════════════════════════════════════════════════════════ */
+    .platform-ios {
+      --ios-primary: #2e7d32;
+      --ios-primary-blue: #007aff;
+      --ios-system-bg: rgba(255, 255, 255, 0.94);
+      --ios-secondary-system-bg: rgba(255, 255, 255, 0.8);
+      --ios-tertiary-system-bg: rgba(255, 255, 255, 0.6);
+      --ios-label: #000000;
+      --ios-secondary-label: rgba(0, 0, 0, 0.6);
+      --ios-tertiary-label: rgba(0, 0, 0, 0.3);
+      --ios-separator: rgba(0, 0, 0, 0.12);
+      --ios-fill: rgba(120, 120, 128, 0.2);
+      --ios-fill-secondary: rgba(120, 120, 128, 0.16);
+      --ios-red: #ff3b30;
+      --ios-blue: #007aff;
+      --ios-green: #34c759;
+      --ios-radius-sm: 10px;
+      --ios-radius-md: 14px;
+      --ios-radius-lg: 20px;
+      --ios-radius-xl: 22px;
+      --ios-blur: blur(20px);
+      --ios-font-weight-title: 600;
+      --ios-font-weight-body: 400;
+      --ios-bottom-nav-height: 83px;
+      --ios-fab-size: 0;
+      --ios-button-height: 50px;
+      --ios-touch-target: 44px;
+      --ios-icon-size: 24px;
+      --ios-safe-area-top: env(safe-area-inset-top, 0px);
+      --ios-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+      --ios-safe-area-left: env(safe-area-inset-left, 0px);
+      --ios-safe-area-right: env(safe-area-inset-right, 0px);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BASE STYLES
+       ═══════════════════════════════════════════════════════════════ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      overscroll-behavior: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MOBILE APP CONTAINER
+       ═══════════════════════════════════════════════════════════════ */
+    .mobile-app {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ANDROID TOP APP BAR
+       ═══════════════════════════════════════════════════════════════ */
+    .android-header {
+      display: none;
+      background: var(--md-primary);
+      color: var(--md-on-primary);
+      padding: 12px 16px;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+      box-shadow: var(--md-elevation-2);
+    }
+
+    .platform-android .android-header {
+      display: flex;
+    }
+
+    .android-header__menu-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .android-header__title {
+      flex: 1;
+      font-size: 22px;
+      font-weight: var(--md-font-weight-title);
+      letter-spacing: 0;
+    }
+
+    .android-header__actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .android-header__icon-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       iOS NAVIGATION BAR
+       ═══════════════════════════════════════════════════════════════ */
+    .ios-header {
+      display: none;
+      background: var(--ios-system-bg);
+      backdrop-filter: var(--ios-blur);
+      -webkit-backdrop-filter: var(--ios-blur);
+      padding: 12px 16px;
+      padding-top: calc(12px + var(--ios-safe-area-top));
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .platform-ios .ios-header {
+      display: flex;
+    }
+
+    .ios-header__large-title {
+      font-size: 34px;
+      font-weight: var(--ios-font-weight-title);
+      color: var(--ios-label);
+      padding-bottom: 8px;
+    }
+
+    .ios-header__search {
+      background: var(--ios-fill);
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ios-header__search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      font-size: 17px;
+      color: var(--ios-label);
+      outline: none;
+    }
+
+    .ios-header__search-input::placeholder {
+      color: var(--ios-tertiary-label);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCREEN CONTENT AREA
+       ═══════════════════════════════════════════════════════════════ */
+    .screen-container {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .platform-ios .screen-container {
+      padding-bottom: calc(var(--ios-bottom-nav-height) + var(--ios-safe-area-bottom));
+    }
+
+    .platform-android .screen-container {
+      padding-bottom: var(--md-bottom-nav-height);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BOTTOM NAVIGATION - ANDROID
+       ═══════════════════════════════════════════════════════════════ */
+    .android-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--md-surface);
+      height: var(--md-bottom-nav-height);
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: flex-start;
+      padding-top: 12px;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    .platform-android .android-bottom-nav {
+      display: flex;
+    }
+
+    .android-bottom-nav__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 0 12px;
+      min-width: 64px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text3);
+      background: transparent;
+      border: none;
+    }
+
+    .android-bottom-nav__item--active {
+      color: var(--md-primary);
+    }
+
+    .android-bottom-nav__icon {
+      width: 64px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .android-bottom-nav__label {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BOTTOM TAB BAR - iOS
+       ═══════════════════════════════════════════════════════════════ */
+    .ios-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--ios-system-bg);
+      backdrop-filter: var(--ios-blur);
+      -webkit-backdrop-filter: var(--ios-blur);
+      height: var(--ios-bottom-nav-height);
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: var(--ios-safe-area-bottom);
+      z-index: 100;
+      border-top: 0.5px solid var(--ios-separator);
+    }
+
+    .platform-ios .ios-bottom-nav {
+      display: flex;
+    }
+
+    .ios-bottom-nav__item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--ios-secondary-label);
+      background: transparent;
+      border: none;
+      padding: 8px 0;
+      min-height: var(--ios-touch-target);
+    }
+
+    .ios-bottom-nav__item--active {
+      color: var(--ios-primary-blue);
+    }
+
+    .ios-bottom-nav__icon {
+      width: var(--ios-icon-size);
+      height: var(--ios-icon-size);
+    }
+
+    .ios-bottom-nav__label {
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCREENS
+       ═══════════════════════════════════════════════════════════════ */
+    .screen {
+      display: none;
+      padding: var(--space-md);
+      animation: screen-in 0.3s ease;
+    }
+
+    .screen--active {
+      display: block;
+    }
+
+    @keyframes screen-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ANDROID MATERIAL CARDS
+       ═══════════════════════════════════════════════════════════════ */
+    .md-card {
+      background: var(--md-surface);
+      border-radius: var(--md-radius-lg);
+      box-shadow: var(--md-elevation-1);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+    }
+
+    .md-card--elevated {
+      box-shadow: var(--md-elevation-2);
+    }
+
+    .md-card--pressed {
+      transform: scale(0.98);
+      box-shadow: var(--md-elevation-1);
+    }
+
+    .md-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .md-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--md-radius-md);
+      background: var(--md-primary-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--md-on-primary-container);
+    }
+
+    .md-card__title {
+      font-size: 18px;
+      font-weight: var(--md-font-weight-title);
+      color: var(--md-on-surface);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       iOS LIST STYLE
+       ═══════════════════════════════════════════════════════════════ */
+    .ios-list {
+      background: var(--ios-system-bg);
+      border-radius: var(--ios-radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-md);
+    }
+
+    .ios-list__item {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--ios-system-bg);
+      border-bottom: 0.5px solid var(--ios-separator);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .ios-list__item:last-child {
+      border-bottom: none;
+    }
+
+    .ios-list__item:active {
+      background: var(--ios-fill);
+    }
+
+    .ios-list__icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: var(--ios-fill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+    }
+
+    .ios-list__text {
+      flex: 1;
+      font-size: 17px;
+      color: var(--ios-label);
+    }
+
+    .ios-list__chevron {
+      color: var(--ios-tertiary-label);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STATS GRID
+       ═══════════════════════════════════════════════════════════════ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .platform-android .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .stat-card {
+      padding: var(--space-md);
+      border-radius: var(--md-radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .platform-ios .stat-card {
+      border-radius: var(--ios-radius-md);
+      background: var(--ios-system-bg);
+      border: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .stat-card__title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text2);
+      margin-bottom: 4px;
+    }
+
+    .platform-ios .stat-card__title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ios-secondary-label);
+    }
+
+    .stat-card__value {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+    }
+
+    .stat-card__value--accent { color: var(--accent); }
+    .stat-card__value--yellow { color: var(--yellow); }
+    .stat-card__value--green { color: var(--green); }
+    .stat-card__value--red { color: var(--red); }
+
+    .stat-card__desc {
+      font-size: 10px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    .platform-ios .stat-card__desc {
+      font-size: 11px;
+      color: var(--ios-tertiary-label);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       DOCUMENT CARDS
+       ═══════════════════════════════════════════════════════════════ */
+    .doc-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--md-radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: var(--space-sm);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .platform-ios .doc-card {
+      border-radius: var(--ios-radius-md);
+      background: var(--ios-system-bg);
+      border: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+
+    .doc-card:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    .doc-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(46, 125, 50, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .doc-card__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-card__name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .platform-ios .doc-card__name {
+      font-size: 16px;
+    }
+
+    .doc-card__meta {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    .doc-card__action {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ANDROID FAB (FLOATING ACTION BUTTON)
+       ═══════════════════════════════════════════════════════════════ */
+    .android-fab {
+      display: none;
+      position: fixed;
+      bottom: calc(var(--md-bottom-nav-height) + 16px);
+      right: 16px;
+      width: var(--md-fab-size);
+      height: var(--md-fab-size);
+      border-radius: 16px;
+      background: var(--md-primary);
+      color: var(--md-on-primary);
+      border: none;
+      box-shadow: var(--md-elevation-3);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .platform-android .android-fab {
+      display: flex;
+    }
+
+    .android-fab:active {
+      transform: scale(0.95);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SETTINGS SCREEN
+       ═══════════════════════════════════════════════════════════════ */
+    .settings-section {
+      margin-bottom: var(--space-lg);
+    }
+
+    .settings-section__title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+      padding-left: var(--space-sm);
+    }
+
+    .platform-ios .settings-section__title {
+      color: var(--ios-secondary-label);
+      font-size: 14px;
+      padding-left: 16px;
+    }
+
+    /* Toggle Switch - Android */
+    .md-switch {
+      display: none;
+      width: 52px;
+      height: 32px;
+      background: var(--border);
+      border-radius: 16px;
+      position: relative;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .md-switch--on {
+      background: var(--md-primary);
+    }
+
+    .platform-android .md-switch {
+      display: block;
+    }
+
+    .md-switch__thumb {
+      width: 28px;
+      height: 28px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform var(--transition-fast);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .md-switch--on .md-switch__thumb {
+      transform: translateX(20px);
+    }
+
+    /* Toggle Switch - iOS */
+    .ios-toggle {
+      display: none;
+      width: 51px;
+      height: 31px;
+      background: var(--ios-fill);
+      border-radius: 16px;
+      position: relative;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .ios-toggle--on {
+      background: var(--ios-green);
+    }
+
+    .platform-ios .ios-toggle {
+      display: block;
+    }
+
+    .ios-toggle__thumb {
+      width: 27px;
+      height: 27px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform var(--transition-fast);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .ios-toggle--on .ios-toggle__thumb {
+      transform: translateX(20px);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       INTRO SCREEN
+       ═══════════════════════════════════════════════════════════════ */
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--accent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #intro-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .intro-logo {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 24px;
+      color: #fff;
+      animation: intro-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .intro-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: intro-fade-up 0.6s 0.15s ease both;
+    }
+
+    .intro-welcome {
+      font-size: 52px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      animation: intro-fade-up 0.6s 0.3s ease both;
+    }
+
+    .intro-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      animation: intro-fade-up 0.5s 0.45s ease both;
+    }
+
+    .intro-bar-wrap {
+      width: 180px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 12px;
+      animation: intro-fade-up 0.4s 0.55s ease both;
+    }
+
+    .intro-bar-fill {
+      height: 100%;
+      background: #fff;
+      border-radius: 99px;
+      width: 0%;
+      animation: intro-progress 4s 0.7s linear forwards;
+    }
+
+    @keyframes intro-pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes intro-fade-up {
+      0% { transform: translateY(18px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes intro-progress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TOAST NOTIFICATIONS
+       ═══════════════════════════════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+      pointer-events: none;
+      text-align: center;
+      max-width: calc(100% - 32px);
+    }
+
+    .platform-android #toast {
+      bottom: calc(var(--md-bottom-nav-height) + 20px);
+    }
+
+    .platform-ios #toast {
+      bottom: calc(var(--ios-bottom-nav-height) + 20px);
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Android Snackbar style */
+    .platform-android #toast {
+      border-radius: 4px;
+      background: #323232;
+    }
+
+    /* iOS Toast style */
+    .platform-ios #toast {
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PLATFORM DETECTION UI
+       ═══════════════════════════════════════════════════════════════ */
+    .platform-selector {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 9998;
+      display: flex;
+      gap: 4px;
+      background: rgba(255,255,255,0.9);
+      padding: 4px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .platform-selector button {
+      padding: 6px 12px;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      color: #666;
+    }
+
+    .platform-selector button.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE ADJUSTMENTS
+       ═══════════════════════════════════════════════════════════════ */
+    @media (min-width: 768px) {
+      .mobile-app {
+        max-width: 480px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      }
+    }
+
+    /* Landscape handling */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .platform-ios .ios-bottom-nav {
+        height: 52px;
+        padding-bottom: 4px;
+      }
+      
+      .platform-android .android-bottom-nav {
+        height: 60px;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       UTILITY CLASSES
+       ═══════════════════════════════════════════════════════════════ */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+</head>
+<body class="platform-android">
+
+  <!-- Platform Selector (Demo Only) -->
+  <div class="platform-selector">
+    <button id="btn-android" class="active" onclick="setPlatform('android')">Android</button>
+    <button id="btn-ios" onclick="setPlatform('ios')">iOS</button>
+  </div>
+
+  <!-- Intro Screen -->
+  <div id="intro-screen">
+    <div class="intro-logo">SS</div>
+    <div class="intro-title">SMART:SKED</div>
+    <div class="intro-welcome">Research Library</div>
+    <div class="intro-sub">Loading your documents…</div>
+    <div class="intro-bar-wrap"><div class="intro-bar-fill"></div></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <!-- Mobile App Container -->
+  <div class="mobile-app">
+    
+    <!-- Android Top App Bar -->
+    <header class="android-header">
+      <button class="android-header__menu-btn" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+      <div class="android-header__title">SMART:SKED</div>
+      <div class="android-header__actions">
+        <button class="android-header__icon-btn" aria-label="Search">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <button class="android-header__icon-btn" aria-label="More">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- iOS Navigation Bar -->
+    <header class="ios-header">
+      <div class="ios-header__large-title">Library</div>
+      <div class="ios-header__search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="ios-header__search-input" placeholder="Search documents...">
+      </div>
+    </header>
+
+    <!-- Screen Container -->
+    <main class="screen-container">
+      
+      <!-- Home Screen -->
+      <div id="screen-home" class="screen screen--active">
+        
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card__title">Documents</div>
+            <div class="stat-card__value stat-card__value--accent" id="docCount">6</div>
+            <div class="stat-card__desc">available</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__title">Modules</div>
+            <div class="stat-card__value stat-card__value--yellow" id="modCount">6</div>
+            <div class="stat-card__desc">covered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__title">Ready</div>
+            <div class="stat-card__value stat-card__value--green" id="readyCount">0</div>
+            <div class="stat-card__desc">cached</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__title">Pending</div>
+            <div class="stat-card__value stat-card__value--red" id="pendingCount">6</div>
+            <div class="stat-card__desc">pending</div>
+          </div>
+        </div>
+
+        <!-- Android Card -->
+        <div class="md-card md-card--elevated">
+          <div class="md-card__header">
+            <div class="md-card__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+              </svg>
+            </div>
+            <div class="md-card__title">Recent Documents</div>
+          </div>
+          <div id="recent-docs">
+            <!-- Document list will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Android: Offline Status Card -->
+        <div class="md-card">
+          <div class="md-card__header">
+            <div class="md-card__icon" style="background: rgba(56, 142, 60, 0.15);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#388e3c" stroke-width="2">
+                <path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0"/>
+              </svg>
+            </div>
+            <div class="md-card__title">Offline Status</div>
+          </div>
+          <p style="font-size: 13px; color: var(--text2); margin-bottom: 12px;">
+            Documents are cached for offline access using Service Worker.
+          </p>
+          <div id="cache-status-md">
+            <!-- Cache status will be updated by JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Documents Screen -->
+      <div id="screen-documents" class="screen">
+        
+        <!-- iOS List -->
+        <div class="ios-list">
+          <div class="ios-list__item" onclick="openDocument('FIL11Pagbasa_M1_Q1_V3-1.pdf')">
+            <div class="ios-list__icon" style="background: rgba(46, 125, 50, 0.15); color: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">FIL11Pagbasa_M1_Q1</span>
+            <span class="ios-list__chevron">›</span>
+          </div>
+          <div class="ios-list__item" onclick="openDocument('FIL11Pagbasa_M2_Q1_V3-2.pdf')">
+            <div class="ios-list__icon" style="background: rgba(46, 125, 50, 0.15); color: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">FIL11Pagbasa_M2_Q1</span>
+            <span class="ios-list__chevron">›</span>
+          </div>
+          <div class="ios-list__item" onclick="openDocument('FIL11Pagbasa_M3_Q1_V3.pdf')">
+            <div class="ios-list__icon" style="background: rgba(46, 125, 50, 0.15); color: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">FIL11Pagbasa_M3_Q1</span>
+            <span class="ios-list__chevron">›</span>
+          </div>
+          <div class="ios-list__item" onclick="openDocument('FIL11Pagbasa_M4_Q1_V3.pdf')">
+            <div class="ios-list__icon" style="background: rgba(46, 125, 50, 0.15); color: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">FIL11Pagbasa_M4_Q1</span>
+            <span class="ios-list__chevron">›</span>
+          </div>
+          <div class="ios-list__item" onclick="openDocument('FIL11Pagbasa_M5_Q1_V3.pdf')">
+            <div class="ios-list__icon" style="background: rgba(46, 125, 50, 0.15); color: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">FIL11Pagbasa_M5_Q1</span>
+            <span class="ios-list__chevron">›</span>
+          </div>
+          <div class="ios-list__item" onclick="openDocument('FIL11Pagbasa_M6_Q1_V3.pdf')">
+            <div class="ios-list__icon" style="background: rgba(46, 125, 50, 0.15); color: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">FIL11Pagbasa_M6_Q1</span>
+            <span class="ios-list__chevron">›</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Settings Screen -->
+      <div id="screen-settings" class="screen">
+        
+        <!-- iOS Settings List -->
+        <div class="ios-list">
+          <div class="ios-list__item">
+            <div class="ios-list__icon" style="background: rgba(0, 122, 255, 0.15); color: #007aff;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">Offline Mode</span>
+            <div class="ios-toggle" id="toggle-offline" onclick="toggleSwitch(this)">
+              <div class="ios-toggle__thumb"></div>
+            </div>
+          </div>
+          <div class="ios-list__item">
+            <div class="ios-list__icon" style="background: rgba(52, 199, 89, 0.15); color: #34c759;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 01-3.46 0"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">Notifications</span>
+            <div class="ios-toggle ios-toggle--on" id="toggle-notifications" onclick="toggleSwitch(this)">
+              <div class="ios-toggle__thumb"></div>
+            </div>
+          </div>
+          <div class="ios-list__item">
+            <div class="ios-list__icon" style="background: rgba(255, 149, 0, 0.15); color: #ff9500;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+              </svg>
+            </div>
+            <span class="ios-list__text">Auto-Cache</span>
+            <div class="ios-toggle ios-toggle--on" id="toggle-autocache" onclick="toggleSwitch(this)">
+              <div class="ios-toggle__thumb"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Android Settings Section -->
+        <div class="settings-section">
+          <div class="settings-section__title">Storage</div>
+          <div class="md-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+              <div>
+                <div style="font-size: 16px; font-weight: 500; color: var(--text);">Clear Cache</div>
+                <div style="font-size: 12px; color: var(--text2); margin-top: 2px;">Free up storage space</div>
+              </div>
+              <button style="background: var(--surface2); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--accent); cursor: pointer;">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Android Switch Section -->
+        <div class="settings-section">
+          <div class="settings-section__title">Preferences</div>
+          <div class="md-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border);">
+              <div style="font-size: 14px; font-weight: 500;">Enable Notifications</div>
+              <div class="md-switch md-switch--on" onclick="toggleMDSwitch(this)">
+                <div class="md-switch__thumb"></div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border);">
+              <div style="font-size: 14px; font-weight: 500;">Auto-Cache Documents</div>
+              <div class="md-switch md-switch--on" onclick="toggleMDSwitch(this)">
+                <div class="md-switch__thumb"></div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+              <div style="font-size: 14px; font-weight: 500;">Dark Mode</div>
+              <div class="md-switch" onclick="toggleMDSwitch(this)">
+                <div class="md-switch__thumb"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- App Info -->
+        <div class="settings-section">
+          <div class="settings-section__title">About</div>
+          <div class="md-card">
+            <div style="text-align: center; padding: 16px;">
+              <div style="width: 64px; height: 64px; background: var(--accent); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                <span style="font-size: 24px; font-weight: 800; color: #fff;">SS</span>
+              </div>
+              <div style="font-size: 18px; font-weight: 700; color: var(--text);">SMART:SKED</div>
+              <div style="font-size: 13px; color: var(--text2); margin-top: 4px;">Version 1.0.0</div>
+              <div style="font-size: 12px; color: var(--text3); margin-top: 8px;">Research Library for Educators</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Android FAB -->
+    <button class="android-fab" aria-label="Add">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+    </button>
+
+    <!-- Android Bottom Navigation -->
+    <nav class="android-bottom-nav">
+      <button class="android-bottom-nav__item android-bottom-nav__item--active" data-screen="home">
+        <div class="android-bottom-nav__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <span class="android-bottom-nav__label">Home</span>
+      </button>
+      <button class="android-bottom-nav__item" data-screen="documents">
+        <div class="android-bottom-nav__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </div>
+        <span class="android-bottom-nav__label">Documents</span>
+      </button>
+      <button class="android-bottom-nav__item" data-screen="settings">
+        <div class="android-bottom-nav__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+        </div>
+        <span class="android-bottom-nav__label">Settings</span>
+      </button>
+    </nav>
+
+    <!-- iOS Bottom Tab Bar -->
+    <nav class="ios-bottom-nav">
+      <button class="ios-bottom-nav__item ios-bottom-nav__item--active" data-screen="home">
+        <svg class="ios-bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span class="ios-bottom-nav__label">Home</span>
+      </button>
+      <button class="ios-bottom-nav__item" data-screen="documents">
+        <svg class="ios-bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+        <span class="ios-bottom-nav__label">Documents</span>
+      </button>
+      <button class="ios-bottom-nav__item" data-screen="settings">
+        <svg class="ios-bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"/>
+          <circle cx="19" cy="12" r="1"/>
+          <circle cx="5" cy="12" r="1"/>
+        </svg>
+        <span class="ios-bottom-nav__label">More</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // PLATFORM DETECTION & SWITCHING
+    // ═══════════════════════════════════════════════════════════════
+    
+    function setPlatform(platform) {
+      document.body.className = `platform-${platform}`;
+      
+      // Update selector buttons
+      document.getElementById('btn-android').classList.toggle('active', platform === 'android');
+      document.getElementById('btn-ios').classList.toggle('active', platform === 'ios');
+      
+      // Show appropriate toast
+      if (platform === 'android') {
+        showToast('Material Design theme applied');
+      } else {
+        showToast('iOS Human Interface theme applied');
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // NAVIGATION
+    // ═══════════════════════════════════════════════════════════════
+    
+    function showScreen(screenId) {
+      // Hide all screens
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('screen--active');
+      });
+      
+      // Show selected screen
+      document.getElementById(`screen-${screenId}`).classList.add('screen--active');
+      
+      // Update bottom nav active state
+      document.querySelectorAll('[data-screen]').forEach(btn => {
+        btn.classList.toggle('android-bottom-nav__item--active', btn.dataset.screen === screenId);
+        btn.classList.toggle('ios-bottom-nav__item--active', btn.dataset.screen === screenId);
+      });
+    }
+
+    // Setup navigation click handlers
+    document.querySelectorAll('[data-screen]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showScreen(btn.dataset.screen);
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // TOGGLE SWITCHES
+    // ═══════════════════════════════════════════════════════════════
+    
+    function toggleSwitch(element) {
+      element.classList.toggle('ios-toggle--on');
+      const isOn = element.classList.contains('ios-toggle--on');
+      showToast(isOn ? 'Enabled' : 'Disabled');
+    }
+
+    function toggleMDSwitch(element) {
+      element.classList.toggle('md-switch--on');
+      const isOn = element.classList.contains('md-switch--on');
+      showToast(isOn ? 'Enabled' : 'Disabled');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // DOCUMENT HANDLING
+    // ═══════════════════════════════════════════════════════════════
+    
+    const documents = [
+      { id: '01', name: 'FIL11Pagbasa_M1_Q1', file: 'FIL11Pagbasa_M1_Q1_V3-1.pdf', module: 'Module 1', quarter: 'Q1' },
+      { id: '02', name: 'FIL11Pagbasa_M2_Q1', file: 'FIL11Pagbasa_M2_Q1_V3-2.pdf', module: 'Module 2', quarter: 'Q1' },
+      { id: '03', name: 'FIL11Pagbasa_M3_Q1', file: 'FIL11Pagbasa_M3_Q1_V3.pdf', module: 'Module 3', quarter: 'Q1' },
+      { id: '04', name: 'FIL11Pagbasa_M4_Q1', file: 'FIL11Pagbasa_M4_Q1_V3.pdf', module: 'Module 4', quarter: 'Q1' },
+      { id: '05', name: 'FIL11Pagbasa_M5_Q1', file: 'FIL11Pagbasa_M5_Q1_V3.pdf', module: 'Module 5', quarter: 'Q1' },
+      { id: '06', name: 'FIL11Pagbasa_M6_Q1', file: 'FIL11Pagbasa_M6_Q1_V3.pdf', module: 'Module 6', quarter: 'Q1' }
+    ];
+
+    // Populate recent documents
+    function populateRecentDocs() {
+      const container = document.getElementById('recent-docs');
+      container.innerHTML = documents.slice(0, 3).map(doc => `
+        <div class="doc-card" onclick="openDocument('${doc.file}')">
+          <div class="doc-card__icon">${doc.id}</div>
+          <div class="doc-card__info">
+            <div class="doc-card__name">${doc.name}</div>
+            <div class="doc-card__meta">${doc.module} • ${doc.quarter}</div>
+          </div>
+          <div class="doc-card__action">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+            </svg>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openDocument(filename) {
+      window.open(filename, '_blank');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // CACHE STATUS
+    // ═══════════════════════════════════════════════════════════════
+    
+    function updateCacheStatusMD(status) {
+      const container = document.getElementById('cache-status-md');
+      container.innerHTML = documents.map(doc => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px;margin-bottom:6px;font-size:12px;">
+          <span style="color:var(--text);">${doc.file}</span>
+          <span style="color:${status === 'ready' ? 'var(--green)' : 'var(--text3)'};font-weight:600;">
+            ${status === 'ready' ? '✓ Cached' : '○ Pending'}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // TOAST NOTIFICATION
+    // ═══════════════════════════════════════════════════════════════
+    
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // INTRO SCREEN
+    // ═══════════════════════════════════════════════════════════════
+    
+    setTimeout(() => {
+      document.getElementById('intro-screen').classList.add('fade-out');
+    }, 4500);
+
+    // ═══════════════════════════════════════════════════════════════
+    // SERVICE WORKER (For PWA functionality)
+    // ═══════════════════════════════════════════════════════════════
+    
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((registration) => {
+            document.getElementById('readyCount').textContent = '6';
+            document.getElementById('pendingCount').textContent = '0';
+            updateCacheStatusMD('ready');
+            setTimeout(() => showToast('All documents cached for offline!'), 2000);
+          })
+          .catch((err) => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+
+    // Initialize
+    populateRecentDocs();
+    updateCacheStatusMD('pending');
+  </script>
+</body>
+</html>
