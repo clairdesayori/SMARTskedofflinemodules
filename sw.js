@@ -3,7 +3,7 @@
 // ============================================================
 
 const CACHE_NAME = 'smartsked-v1';
-const OFFLINE_URL = 'mobile-app.html';
+const OFFLINE_URL = 'index.html';
 
 // Assets to cache immediately on install
 const PRECACHE_ASSETS = [
@@ -149,3 +149,4 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
+
