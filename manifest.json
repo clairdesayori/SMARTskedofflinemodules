@@ -3,7 +3,7 @@
   "short_name": "SMART:SKED",
   "description": "Research Library for Educators - Document Viewer with Offline Support",
   "id": "/",
-  "start_url": "./mobile-app.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#e8f5e9",
   "theme_color": "#2e7d32",
@@ -28,3 +28,4 @@
   "scope": "./",
   "prefer_related_applications": false
 }
+
